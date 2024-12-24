@@ -239,6 +239,7 @@ export class OwlDateTimeContainerComponent<T>
 
         if (this.picker.isInRangeMode) {
             result = this.dateSelectedInRangeMode(date);
+            console.log(date, result, 'asd');
             if (result) {
                 this.pickerMoment = result[this.activeSelectedIndex];
                 this.picker.select(result);
