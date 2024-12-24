@@ -78,6 +78,7 @@ export const OWL_DTPICKER_SCROLL_STRATEGY_PROVIDER = {
 })
 export class OwlDateTimeComponent<T> extends OwlDateTime<T>
     implements OnInit, OnDestroy {
+    @Input() allowReverseSelection = false;
     /** Custom class for the picker backdrop. */
     @Input()
     public backdropClass: string | string[] = [];
