@@ -9,6 +9,7 @@ import {
     ChangeDetectorRef,
     Component,
     ElementRef,
+    Input,
     OnInit,
     Optional,
     ViewChild
@@ -57,6 +58,8 @@ export class OwlDateTimeContainerComponent<T>
     calendar: OwlCalendarComponent<T>;
     @ViewChild(OwlTimerComponent, { static: false })
     timer: OwlTimerComponent<T>;
+
+    @Input() allowReverseSelection = false;
 
     public picker: OwlDateTime<T>;
     public activeSelectedIndex = 0; // The current active SelectedIndex in range select mode (0: 'from', 1: 'to')
@@ -398,7 +401,7 @@ export class OwlDateTimeContainerComponent<T>
             return null;
         }
 
-        // if the given calendar day is after or equal to 'from',
+        //(NOTE: IF allowReverseSelection is false) if the given calendar day is after or equal to 'from',
         // set ths given date as 'to'
         // otherwise, set it as 'from' and set 'to' to null
         if (this.picker.selectMode === 'range') {
@@ -407,10 +410,19 @@ export class OwlDateTimeContainerComponent<T>
                 this.picker.selecteds.length &&
                 !to &&
                 from &&
-                this.dateTimeAdapter.differenceInCalendarDays(result, from) >= 0
+                (
+                    this.picker.allowReverseSelection ||
+                    this.dateTimeAdapter.differenceInCalendarDays(result, from) >= 0
+                )
             ) {
-                to = result;
-                this.activeSelectedIndex = 1;
+                if(!this.picker.allowReverseSelection || this.dateTimeAdapter.differenceInCalendarDays(result, from) >= 0) {
+                    to = result;
+                    this.activeSelectedIndex = 1;
+                } else {
+                    to = from;
+                    from = result;
+                    this.activeSelectedIndex = 1;
+                }
             } else {
                 from = result;
                 to = null;

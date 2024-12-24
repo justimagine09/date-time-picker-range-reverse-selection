@@ -7,10 +7,10 @@ Angular Date Time Picker
 **Angular date time picker - Angular reusable UI component**
 **This package supports Angular 8**
 
-
-Breaking Changes
+Changes
 -------
- - The picker has been updated for Angular 7+ apps.
+Allow user to reverse date range selection by setting allowReverseSelection to true
+ex: <owl-date-time #date_range_component [allowReverseSelection]="true"></owl-date-time>
 
 Description
 -------
@@ -196,4 +196,4 @@ License
 
 Author
 -------
-**Daniel YK Pan**
+**Maintained and updated by John Froi, original implementatiom by Daniel Pan**

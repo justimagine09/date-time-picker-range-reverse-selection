@@ -21,6 +21,7 @@ export type PickerMode = 'popup' | 'dialog' | 'inline';
 export type SelectMode = 'single' | 'range' | 'rangeFrom' | 'rangeTo';
 
 export abstract class OwlDateTime<T> {
+    @Input() allowReverseSelection = false;
     /**
      * Whether to show the second's timer
      */

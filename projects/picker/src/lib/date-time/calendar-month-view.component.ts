@@ -337,7 +337,6 @@ export class OwlMonthViewComponent<T>
             this.firstDateOfMonth,
             daysDiff
         );
-
         this.selectedChange.emit(selected);
         this.userSelection.emit();
     }
