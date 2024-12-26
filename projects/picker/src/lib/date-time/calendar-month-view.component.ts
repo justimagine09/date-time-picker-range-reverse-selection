@@ -548,7 +548,13 @@ export class OwlMonthViewComponent<T>
                 week.push(dateCell);
                 daysDiff += 1;
             }
-            this._days.push(week);
+            if (this.hideOtherMonths) {
+                if(!week.every((item: CalendarCell) => item.out)) {
+                    this._days.push(week);
+                }
+            } else {
+                this._days.push(week);
+            }
         }
 
         this.setSelectedDates();

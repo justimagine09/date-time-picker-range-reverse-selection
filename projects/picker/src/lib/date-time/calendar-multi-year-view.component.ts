@@ -29,8 +29,8 @@ import {
 } from '@angular/cdk/keycodes';
 import { OwlDateTimeIntl } from './date-time-picker-intl.service';
 
-export const YEARS_PER_ROW = 3;
-export const YEAR_ROWS = 7;
+export const YEARS_PER_ROW = 4;
+export const YEAR_ROWS = 6;
 
 @Component({
     selector: 'owl-date-time-multi-year-view',

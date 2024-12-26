@@ -4,7 +4,7 @@
                 type="button" tabindex="0"
                 [attr.aria-label]="periodButtonLabel"
                 (click)="toggleViews()">
-            <span class="owl-dt-control-content owl-dt-control-button-content" tabindex="-1">
+            <span class="owl-dt-control-content owl-dt-header-content owl-dt-control-button-content" tabindex="-1">
                 {{currentView == 'multi-years' ? multiYearHeader : periodButtonText}}
 
                 <span class="owl-dt-control-button-arrow"
@@ -30,7 +30,7 @@
             [style.visibility]="showControlArrows? 'visible': 'hidden'"
             [disabled]="!prevButtonEnabled()"
             [attr.aria-label]="prevButtonLabel"
-            (click)="previousClicked()">
+            (click)="previousClicked($event)">
         <span class="owl-dt-control-content owl-dt-control-button-content" tabindex="-1">
             <!-- <editor-fold desc="SVG Arrow Left"> -->
         <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -47,7 +47,7 @@
             [style.visibility]="showControlArrows? 'visible': 'hidden'"
             [disabled]="!nextButtonEnabled()"
             [attr.aria-label]="nextButtonLabel"
-            (click)="nextClicked()">
+            (click)="nextClicked($event)">
         <span class="owl-dt-control-content owl-dt-control-button-content" tabindex="-1">
             <!-- <editor-fold desc="SVG Arrow Right"> -->
         <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
@@ -92,6 +92,7 @@
             (change)="goToDateInView($event, 'month')"></owl-date-time-year-view>
 
     <owl-date-time-multi-year-view
+            #multiYear
             *ngSwitchCase="'multi-years'"
             [pickerMoment]="pickerMoment"
             [selected]="selected"

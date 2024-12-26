@@ -228,12 +228,16 @@ $range-color: #c9e2f5;
   align-items: center;
 
   .owl-dt-calendar-table {
-    width: calc(100% - 3em);
+    width: 100%;
 
     .owl-dt-calendar-header th {
       padding-bottom: .25em;
     }
   }
+}
+
+.owl-dt-header-content {
+  text-transform: capitalize;
 }
 
 .owl-dt-calendar-table {

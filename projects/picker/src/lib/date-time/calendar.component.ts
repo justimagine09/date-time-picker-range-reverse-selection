@@ -16,7 +16,8 @@ import {
     OnDestroy,
     OnInit,
     Optional,
-    Output
+    Output,
+    ViewChild
 } from '@angular/core';
 import { OwlDateTimeIntl } from './date-time-picker-intl.service';
 import { DateTimeAdapter } from './adapter/date-time-adapter.class';
@@ -27,6 +28,7 @@ import {
 import { SelectMode } from './date-time.class';
 import { take } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { OwlMultiYearViewComponent } from './calendar-multi-year-view.component';
 
 @Component({
     selector: 'owl-date-time-calendar',
@@ -41,6 +43,8 @@ import { Subscription } from 'rxjs';
 })
 export class OwlCalendarComponent<T>
     implements OnInit, AfterContentInit, AfterViewChecked, OnDestroy {
+    @ViewChild('multiYear', {static: false}) public multiYear?: OwlMultiYearViewComponent<any>;
+
     /**
      * Date filter for the month and year view
      * */
@@ -175,7 +179,7 @@ export class OwlCalendarComponent<T>
             ? this.dateTimeAdapter.format(
                   this.pickerMoment,
                   this.dateTimeFormats.monthYearLabel
-              )
+              ).toUpperCase()
             : this.dateTimeAdapter.getYearName(this.pickerMoment);
     }
 
@@ -228,7 +232,7 @@ export class OwlCalendarComponent<T>
     }
 
     get showControlArrows(): boolean {
-        return this._currentView !== 'multi-years';
+        return true;
     }
 
     get isMonthView() {
@@ -309,7 +313,12 @@ export class OwlCalendarComponent<T>
     /**
      * Handles user clicks on the previous button.
      * */
-    public previousClicked(): void {
+    public previousClicked($event: any): void {
+        if(this._currentView === 'multi-years') {
+            this.multiYear!.prevYearList($event);
+            return;
+        }
+
         this.pickerMoment = this.isMonthView
             ? this.dateTimeAdapter.addCalendarMonths(this.pickerMoment, -1)
             : this.dateTimeAdapter.addCalendarYears(this.pickerMoment, -1);
@@ -320,7 +329,12 @@ export class OwlCalendarComponent<T>
     /**
      * Handles user clicks on the next button.
      * */
-    public nextClicked(): void {
+    public nextClicked($event: any): void {
+        if(this._currentView === 'multi-years') {
+            this.multiYear!.nextYearList($event);
+            return;
+        }
+
         this.pickerMoment = this.isMonthView
             ? this.dateTimeAdapter.addCalendarMonths(this.pickerMoment, 1)
             : this.dateTimeAdapter.addCalendarYears(this.pickerMoment, 1);
