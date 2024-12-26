@@ -256,6 +256,7 @@ export class OwlCalendarComponent<T>
         return true;
     }
 
+    multiYearHeader = '';
     private intlChangesSub = Subscription.EMPTY;
 
     /**
@@ -434,6 +435,10 @@ export class OwlCalendarComponent<T>
         } else {
             return false;
         }
+    }
+
+    public yearHeaderChanged(value: any) {
+        this.multiYearHeader = value;
     }
 
     /**

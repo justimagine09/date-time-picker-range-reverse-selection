@@ -1,13 +1,14 @@
 {
-  "name": "ng-pick-datetime",
-  "version": "8.0.0",
+  "name": "ng-pick-datetime-nv",
+  "version": "8.0.2",
   "description": "Angular Date Time Picker",
   "keywords": [
     "Angular",
     "datepicker",
     "date picker",
     "timepicker",
-    "time picker"
+    "time picker",
+    "reverse selection"
   ],
   "author": "daniel pan <myron.yk.pan@gmail.com>",
   "license": "MIT",

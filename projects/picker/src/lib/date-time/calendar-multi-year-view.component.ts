@@ -45,6 +45,7 @@ export const YEAR_ROWS = 7;
 })
 
 export class OwlMultiYearViewComponent<T> implements OnInit, AfterContentInit {
+    @Output() yearHeaderChanged = new EventEmitter<string>();
 
     /**
      * The select mode of the picker;
@@ -191,7 +192,7 @@ export class OwlMultiYearViewComponent<T> implements OnInit, AfterContentInit {
 
     get tableHeader(): string {
         if (this._years && this._years.length > 0) {
-            return `${this._years[0][0].displayValue} ~ ${this._years[YEAR_ROWS - 1][YEARS_PER_ROW - 1].displayValue}`
+            return `${this._years[0][0].displayValue} - ${this._years[YEAR_ROWS - 1][YEARS_PER_ROW - 1].displayValue}`
         }
     }
 
@@ -305,6 +306,10 @@ export class OwlMultiYearViewComponent<T> implements OnInit, AfterContentInit {
             }
 
             this._years.push(row);
+        }
+
+        if(this._years.length) {
+            this.yearHeaderChanged.emit(this.tableHeader);
         }
 
         return;
