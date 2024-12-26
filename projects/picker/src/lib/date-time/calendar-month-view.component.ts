@@ -287,6 +287,8 @@ export class OwlMonthViewComponent<T>
         return true;
     }
 
+    selectedPreview: any | null = null;
+
     constructor(
         private cdRef: ChangeDetectorRef,
         @Optional() private dateTimeAdapter: DateTimeAdapter<T>,
@@ -328,6 +330,21 @@ export class OwlMonthViewComponent<T>
         this.selectDate(cell.value);
     }
 
+    public onPreview(cell: CalendarCell): void {
+        if(!cell) {
+            this.selectedPreview = null;
+            return;
+        }
+        // Cases in which the date would not be selected
+        // 1, the calendar cell is NOT enabled (is NOT valid)
+        // 2, the selected date is NOT in current picker's month and the hideOtherMonths is enabled
+        if (!cell.enabled || (this.hideOtherMonths && cell.out)) {
+            return;
+        }
+
+        this.selectPreview(cell.value);
+    }
+
     /**
      * Handle a new date selected
      */
@@ -339,6 +356,20 @@ export class OwlMonthViewComponent<T>
         );
         this.selectedChange.emit(selected);
         this.userSelection.emit();
+    }
+
+    private selectPreview(date: number): void {
+        const selected = this.dateTimeAdapter.addCalendarDays(
+            this.firstDateOfMonth,
+            date
+        );
+
+        const dayDiff = this.dateTimeAdapter.differenceInCalendarDays(
+            selected,
+            this.firstDateOfMonth
+        );
+        
+        this.selectedPreview = dayDiff;
     }
 
     /**

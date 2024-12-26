@@ -1,0 +1,27 @@
+$owl-dt-calendar-cell-in-preview-border: dashed 1px rgba(0,0,0,0.12);
+
+.owl-dt-calendar-cell {
+    border: 1px solid transparent;
+}
+.owl-dt-calendar-cell-in-preview {
+    border-top: $owl-dt-calendar-cell-in-preview-border;
+    border-bottom: $owl-dt-calendar-cell-in-preview-border;
+}
+
+
+.owl-dt-calendar-cell-end-preview {
+    border-right: $owl-dt-calendar-cell-in-preview-border;
+    &:hover {
+        border-top-right-radius: 24px;
+        border-bottom-right-radius: 24px;
+    }
+}
+
+.owl-dt-calendar-cell-start-preview {
+    border-left: $owl-dt-calendar-cell-in-preview-border;
+
+    &:hover {
+        border-top-left-radius: 24px;
+        border-bottom-left-radius: 24px;
+    }
+}

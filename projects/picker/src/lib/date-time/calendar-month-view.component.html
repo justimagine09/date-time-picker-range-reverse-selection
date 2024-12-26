@@ -17,7 +17,9 @@
            [selectedValues]="selectedDates"
            [selectMode]="selectMode"
            [activeCell]="activeCell"
+           [previewDate]="selectedPreview"
            (keydown)="handleCalendarKeydown($event)"
-           (select)="selectCalendarCell($event)">
+           (select)="selectCalendarCell($event)"
+           (onPreview)="onPreview($event)">
     </tbody>
 </table>

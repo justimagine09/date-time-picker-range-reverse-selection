@@ -9,8 +9,10 @@ import {
     EventEmitter,
     Input,
     NgZone,
+    OnChanges,
     OnInit,
-    Output
+    Output,
+    SimpleChanges
 } from '@angular/core';
 import { SelectMode } from './date-time.class';
 import { take } from 'rxjs/operators';
@@ -80,11 +82,17 @@ export class OwlCalendarBodyComponent implements OnInit {
     @Input()
     selectMode: SelectMode;
 
+    @Input()
+    previewDate: any = null;
+
     /**
      * Emit when a calendar cell is selected
      * */
     @Output()
     public readonly select = new EventEmitter<CalendarCell>();
+
+    @Output()
+    public readonly onPreview = new EventEmitter<CalendarCell | null>();
 
     get owlDTCalendarBodyClass(): boolean {
         return true;
@@ -152,6 +160,54 @@ export class OwlCalendarBodyComponent implements OnInit {
     }
 
     /**
+     * Check if the cell in the range
+     * */
+    public isInPreview(value: number): boolean {
+        if (this.isInRangeMode && this.previewDate) {
+            const fromValue = this.selectedValues[0];
+            const toValue = this.selectedValues[1];
+
+            if (fromValue === null || toValue !== null) return false;
+
+            if (fromValue >= this.previewDate) {
+                return value <= fromValue && value >= this.previewDate;
+            }
+            
+            return value >= fromValue && value <= this.previewDate;
+        }
+    }
+
+    public lastPreviewItem(value: number) {
+        if (this.isInRangeMode && this.previewDate) {
+            const fromValue = this.selectedValues[0];
+            const toValue = this.selectedValues[1];
+
+            if (fromValue === null || toValue !== null) return false;
+
+            if (fromValue >= this.previewDate) {
+                return fromValue === value;
+            }
+            
+            return this.previewDate === value;
+        }
+    }
+
+    public startPreviewItem(value: number) {
+        if (this.isInRangeMode && this.previewDate) {
+            const fromValue = this.selectedValues[0];
+            const toValue = this.selectedValues[1];
+
+            if (fromValue === null || toValue !== null) return false;
+
+            if (fromValue >= this.previewDate) {
+                return this.previewDate === value;
+            }
+
+            return fromValue === value;
+        }
+    }
+
+    /**
      * Check if the cell is the range from
      * */
     public isRangeFrom(value: number): boolean {
@@ -185,5 +241,13 @@ export class OwlCalendarBodyComponent implements OnInit {
                         .focus();
                 });
         });
+    }
+
+    public onMouseEnter(event: any) {
+        this.onPreview.emit(event);
+    }
+
+    public onMouseOut() {
+        this.onPreview.emit(null);
     }
 }

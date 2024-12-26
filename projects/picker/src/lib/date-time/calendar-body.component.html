@@ -5,6 +5,9 @@
         [class.owl-dt-calendar-cell-active]="isActiveCell(rowIndex, colIndex)"
         [class.owl-dt-calendar-cell-disabled]="!item.enabled"
         [class.owl-dt-calendar-cell-in-range]="isInRange(item.value)"
+        [class.owl-dt-calendar-cell-in-preview]="isInPreview(item.value)"
+        [class.owl-dt-calendar-cell-start-preview]="startPreviewItem(item.value)"
+        [class.owl-dt-calendar-cell-end-preview]="lastPreviewItem(item.value)"
         [class.owl-dt-calendar-cell-range-from]="isRangeFrom(item.value)"
         [class.owl-dt-calendar-cell-range-to]="isRangeTo(item.value)"
         [attr.aria-label]="item.ariaLabel"
@@ -12,7 +15,9 @@
         [style.width.%]="100 / numCols"
         [style.paddingTop.%]="50 * cellRatio / numCols"
         [style.paddingBottom.%]="50 * cellRatio / numCols"
-        (click)="selectCell(item)">
+        (click)="selectCell(item)"
+        (mouseenter)="onMouseEnter(item)"
+        (mouseleave)="onMouseOut()">
         <span class="owl-dt-calendar-cell-content"
               [ngClass]="{
                 'owl-dt-calendar-cell-out': item.out,
