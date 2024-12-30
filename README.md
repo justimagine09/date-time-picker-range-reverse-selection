@@ -10,7 +10,8 @@ Angular Date Time Picker
 
 Changes
 -------
- - Allow reverse range selection by passing
+ - Allow reverse range selection by passing [allowReverseSelection]=true
+ ex: <owl-date-time [allowReverseSelection]="true"></owl-date-time>
 
 Description
 -------
