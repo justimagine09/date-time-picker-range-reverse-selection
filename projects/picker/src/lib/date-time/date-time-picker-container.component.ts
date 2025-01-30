@@ -60,6 +60,7 @@ export class OwlDateTimeContainerComponent<T>
     timer: OwlTimerComponent<T>;
 
     @Input() allowReverseSelection = false;
+    @Input() dateTimeFormat = null;
 
     public picker: OwlDateTime<T>;
     public activeSelectedIndex = 0; // The current active SelectedIndex in range select mode (0: 'from', 1: 'to')
@@ -141,7 +142,7 @@ export class OwlDateTimeContainerComponent<T>
     get fromFormattedValue(): string {
         const value = this.picker.selecteds[0];
         return value
-            ? this.dateTimeAdapter.format(value, this.picker.formatString)
+            ? this.dateTimeAdapter.format(value, this.picker.formatString, this.picker.dateTimeFormat)
             : '';
     }
 
@@ -151,7 +152,7 @@ export class OwlDateTimeContainerComponent<T>
     get toFormattedValue(): string {
         const value = this.picker.selecteds[1];
         return value
-            ? this.dateTimeAdapter.format(value, this.picker.formatString)
+            ? this.dateTimeAdapter.format(value, this.picker.formatString, this.picker.dateTimeFormat)
             : '';
     }
 

@@ -8,6 +8,7 @@ import {
     DateTimeAdapter,
     OWL_DATE_TIME_LOCALE
 } from './date-time-adapter.class';
+import * as moment from 'moment';
 
 /** The default month names to use if Intl API is not available. */
 const DEFAULT_MONTH_NAMES = {
@@ -390,7 +391,7 @@ export class NativeDateTimeAdapter extends DateTimeAdapter<Date> {
         return new Date();
     }
 
-    public format(date: Date, displayFormat: any): string {
+    public format(date: Date, displayFormat: any, customDisplayFormat?: any): string {
         if (!this.isValid(date)) {
             throw Error('JSNativeDate: Cannot format invalid date.');
         }
@@ -407,6 +408,9 @@ export class NativeDateTimeAdapter extends DateTimeAdapter<Date> {
             }
 
             displayFormat = { ...displayFormat, timeZone: 'utc' };
+            if(customDisplayFormat) {
+                return this.stripDirectionalityCharacters(moment(date).format('DD-MMM-yyyy hh:mm a'));
+            }
             const dtf = new Intl.DateTimeFormat(this.locale, displayFormat);
             return this.stripDirectionalityCharacters(this._format(dtf, date));
         }

@@ -3,10 +3,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
-import { OwlDateTimeModule, OwlNativeDateTimeModule } from '../../projects/picker/src/public_api';
+import { OWL_DATE_TIME_FORMATS, OwlDateTimeModule, OwlNativeDateTimeModule } from '../../projects/picker/src/public_api';
 
 import { AppComponent } from './app.component';
-
 
 @NgModule({
   declarations: [

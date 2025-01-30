@@ -203,7 +203,7 @@ export abstract class DateTimeAdapter<T> {
     /**
      * Formats a date as a string according to the given format.
      */
-    abstract format(date: T, displayFormat: any): string;
+    abstract format(date: T, displayFormat: any, customDisplayFormat?: any): string;
 
     /**
      * Parse a user-provided value to a Date Object

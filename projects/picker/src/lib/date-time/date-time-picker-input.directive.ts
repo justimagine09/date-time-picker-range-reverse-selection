@@ -417,6 +417,7 @@ export class OwlDateTimeInputDirective<T>
         private renderer: Renderer2,
         @Optional() private dateTimeAdapter: DateTimeAdapter<T>,
         @Optional() @Inject(OWL_DATE_TIME_FORMATS) private dateTimeFormats: OwlDateTimeFormats ) {
+        console.log('dateTimeFormats', this.dateTimeFormats);
         if (!this.dateTimeAdapter) {
             throw Error(
                 `OwlDateTimePicker: No provider found for DateTimePicker. You must import one of the following ` +
@@ -566,17 +567,19 @@ export class OwlDateTimeInputDirective<T>
             if (this._values && this.values.length > 0) {
                 const from = this._values[0];
                 const to = this._values[1];
-
+                console.log('formatString', this.dtPicker.dateTimeFormat);
                 const fromFormatted = from
                     ? this.dateTimeAdapter.format(
                           from,
-                          this.dtPicker.formatString
+                          this.dtPicker.formatString,
+                          this.dtPicker.dateTimeFormat
                       )
                     : '';
                 const toFormatted = to
                     ? this.dateTimeAdapter.format(
                           to,
-                          this.dtPicker.formatString
+                          this.dtPicker.formatString,
+                          this.dtPicker.dateTimeFormat
                       )
                     : '';
 
@@ -588,6 +591,7 @@ export class OwlDateTimeInputDirective<T>
                     );
                 } else {
                     if (this._selectMode === 'range') {
+                        console.log(fromFormatted, toFormatted);
                         this.renderer.setProperty(
                             this.elmRef.nativeElement,
                             'value',
