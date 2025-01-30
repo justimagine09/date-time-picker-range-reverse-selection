@@ -8,7 +8,8 @@ import {
     DateTimeAdapter,
     OWL_DATE_TIME_LOCALE
 } from './date-time-adapter.class';
-import * as moment from 'moment';
+import * as moment_ from 'moment';
+const moment = moment_;
 
 /** The default month names to use if Intl API is not available. */
 const DEFAULT_MONTH_NAMES = {

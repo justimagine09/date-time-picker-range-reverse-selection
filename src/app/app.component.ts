@@ -20,6 +20,10 @@ export class AppComponent implements AfterViewInit {
 
   open_once = false;
 
+  onchanged ($event: any) {
+    console.log(this.selectedMoments, $event);
+  }
+
   ngAfterViewInit() {
     /*
     if (!this.open_once) {

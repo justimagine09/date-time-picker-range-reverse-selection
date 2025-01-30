@@ -8,9 +8,10 @@ import { DateTimeAdapter } from './date-time-adapter.class';
 import { NativeDateTimeAdapter } from './native-date-time-adapter.class';
 import { OWL_DATE_TIME_FORMATS } from './date-time-format.class';
 import { OWL_NATIVE_DATE_TIME_FORMATS } from './native-date-time-format.class';
+import { MomentDateTimeModule } from './moment-adapter/moment-date-time.module';
 
 @NgModule({
-    imports: [PlatformModule],
+    imports: [PlatformModule, MomentDateTimeModule],
     providers: [
         {provide: DateTimeAdapter, useClass: NativeDateTimeAdapter},
     ],
