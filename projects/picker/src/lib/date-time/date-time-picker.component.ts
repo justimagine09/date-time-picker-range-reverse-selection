@@ -80,6 +80,8 @@ export class OwlDateTimeComponent<T> extends OwlDateTime<T>
     implements OnInit, OnDestroy {
     @Input() allowReverseSelection = false;
     @Input() dateTimeFormat = null;
+    @Input() startDefaultTime = null;
+    @Input() endDefaultTime = null;
     /** Custom class for the picker backdrop. */
     @Input()
     public backdropClass: string | string[] = [];

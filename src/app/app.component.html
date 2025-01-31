@@ -3,4 +3,4 @@
        [owlDateTimeTrigger]="date_range_component" [owlDateTime]="date_range_component"
        style="width: 100%; color: cornflowerblue"
        id="daterange" matInput>
-<owl-date-time #date_range_component (afterPickerClosed)="onchanged($event);" [allowReverseSelection]="true" [hideOtherMonths]="true"></owl-date-time>
+<owl-date-time [startDefaultTime]="'12:00'" [endDefaultTime]="'14:00'" #date_range_component (afterPickerClosed)="onchanged($event);" [allowReverseSelection]="true" [hideOtherMonths]="true"></owl-date-time>

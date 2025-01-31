@@ -219,6 +219,7 @@ export class OwlTimerComponent<T> implements OnInit {
     }
 
     public setHourValue(hours: number): void {
+        console.log(this.pickerMoment, hours);
         const m = this.dateTimeAdapter.setHours(this.pickerMoment, hours);
         this.selectedChange.emit(m);
         this.cdRef.markForCheck();

@@ -29,7 +29,8 @@ import {
     SPACE,
     UP_ARROW
 } from '@angular/cdk/keycodes';
-
+import * as _moment from 'moment';
+const moment = _moment;
 @Component({
     exportAs: 'owlDateTimeContainer',
     selector: 'owl-date-time-container',
@@ -61,6 +62,8 @@ export class OwlDateTimeContainerComponent<T>
 
     @Input() allowReverseSelection = false;
     @Input() dateTimeFormat = null;
+    @Input() startDefaultTime = null;
+    @Input() endDefaultTime = null;
 
     public picker: OwlDateTime<T>;
     public activeSelectedIndex = 0; // The current active SelectedIndex in range select mode (0: 'from', 1: 'to')
@@ -244,6 +247,20 @@ export class OwlDateTimeContainerComponent<T>
         if (this.picker.isInRangeMode) {
             result = this.dateSelectedInRangeMode(date);
             if (result) {
+                if(this.activeSelectedIndex === 1 && this.picker.startDefaultTime) {
+                    const date = moment(result[this.activeSelectedIndex]);
+                    const endDate = this.picker.endDefaultTime.split(':');
+                    date.set({hour: endDate[0], minute: endDate[1]});
+                    result[this.activeSelectedIndex] = date.toDate() as any;
+                    this.pickerMoment = date.toDate() as any;
+                } else if(this.picker.endDefaultTime) {
+                    const date = moment(result[this.activeSelectedIndex]);
+                    const start = this.picker.startDefaultTime.split(':');
+                    date.set({hour: start[0], minute: start[1]});
+                    result[this.activeSelectedIndex] = date.toDate() as any;
+                    this.pickerMoment = date.toDate() as any;
+                }
+                
                 this.pickerMoment = result[this.activeSelectedIndex];
                 this.picker.select(result);
             }
@@ -363,7 +380,6 @@ export class OwlDateTimeContainerComponent<T>
             this.activeSelectedIndex !== index
         ) {
             this.activeSelectedIndex = index;
-
             const selected = this.picker.selecteds[this.activeSelectedIndex];
             if (this.picker.selecteds && selected) {
                 this.pickerMoment = this.dateTimeAdapter.clone(selected);
@@ -374,6 +390,13 @@ export class OwlDateTimeContainerComponent<T>
 
     private initPicker(): void {
         this.pickerMoment = this.picker.startAt || this.dateTimeAdapter.now();
+        if(this.picker.startDefaultTime) {
+            const date = moment(this.pickerMoment);
+            const start = this.picker.startDefaultTime.split(':');
+            date.set({hour: start[0], minute: start[1]})
+            this.pickerMoment = date.toDate() as any;
+        }
+
         this.activeSelectedIndex = this.picker.selectMode === 'rangeTo' ? 1 : 0;
     }
 

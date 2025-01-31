@@ -22,7 +22,9 @@ export type SelectMode = 'single' | 'range' | 'rangeFrom' | 'rangeTo';
 
 export abstract class OwlDateTime<T> {
     @Input() allowReverseSelection = false;
-    @Input() dateTimeFormat = false;
+    @Input() dateTimeFormat = null;
+    @Input() startDefaultTime = null;
+    @Input() endDefaultTime = null;
     /**
      * Whether to show the second's timer
      */
