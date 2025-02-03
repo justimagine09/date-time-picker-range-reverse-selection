@@ -410,7 +410,7 @@ export class NativeDateTimeAdapter extends DateTimeAdapter<Date> {
 
             displayFormat = { ...displayFormat, timeZone: 'utc' };
             if(customDisplayFormat) {
-                return this.stripDirectionalityCharacters(moment(date).format('DD-MMM-yyyy hh:mm a'));
+                return this.stripDirectionalityCharacters(moment(date).format(customDisplayFormat));
             }
             const dtf = new Intl.DateTimeFormat(this.locale, displayFormat);
             return this.stripDirectionalityCharacters(this._format(dtf, date));

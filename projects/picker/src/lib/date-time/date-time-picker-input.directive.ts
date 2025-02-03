@@ -417,7 +417,7 @@ export class OwlDateTimeInputDirective<T>
         private renderer: Renderer2,
         @Optional() private dateTimeAdapter: DateTimeAdapter<T>,
         @Optional() @Inject(OWL_DATE_TIME_FORMATS) private dateTimeFormats: OwlDateTimeFormats ) {
-        console.log('dateTimeFormats', this.dateTimeFormats);
+            
         if (!this.dateTimeAdapter) {
             throw Error(
                 `OwlDateTimePicker: No provider found for DateTimePicker. You must import one of the following ` +
